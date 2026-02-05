@@ -21,7 +21,7 @@ func Databaseconnection() *gorm.DB {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",localhost,user, password, dbname, port  )
      db,err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	 if err != nil{
-		log.Fatal("Server failed  to connect  with database")
+		log.Fatalf("Server failed  to connect  with database %d",err)
 	 }
 	 db.AutoMigrate(&model.Todoinfo{})
 	

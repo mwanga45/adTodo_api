@@ -1,6 +1,7 @@
 package main
 
 import (
+	"todo_api_backend/config"
 	database "todo_api_backend/db"
 
 	"github.com/gofiber/fiber/v2"
@@ -15,6 +16,7 @@ func main() {
 		AllowOrigins: "*",
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
+      config.LoadEnv()
 	_= database.Databaseconnection()
 	
 
