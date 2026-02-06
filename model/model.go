@@ -10,5 +10,7 @@ type Todoinfo struct{
 type User struct{
 	gorm.Model
 	Username  string `json:"username"`
+	Complete bool `json:"complete"`
 	Password  string `json:"password"`
+
 }
