@@ -4,7 +4,6 @@ import (
 	"todo_api_backend/model"
 	"todo_api_backend/response"
 	"todo_api_backend/service"
-
 	"github.com/gofiber/fiber/v2"
 )
 
