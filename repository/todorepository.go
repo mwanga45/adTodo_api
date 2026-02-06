@@ -5,9 +5,8 @@ import (
 	"todo_api_backend/model"
 )
 
-
-
-func CreateTodo (todo *model.Todoinfo)error{
+func CreateTodo(todo *model.Todoinfo) error {
 	db := database.Databaseconnection()
-  return   db.First(&todo).Error
+	return db.Create(&todo).Error
 }
+
