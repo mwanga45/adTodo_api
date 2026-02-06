@@ -25,12 +25,7 @@ func Createuser(c *fiber.Ctx)error{
 			Success: false,
 		})
 	}
-	if err := service.Createuser(&user);err != nil{
-     return  c.Status(fiber.StatusInternalServerError).JSON(response.Response{
-		Message: err.Error(),
-		Success: false,
-	 }) 
-	}
+
 	hashed, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil{
 		return  c.Status(fiber.StatusInternalServerError).JSON(response.Response{
@@ -39,6 +34,17 @@ func Createuser(c *fiber.Ctx)error{
 		})
 	}
 	user.Password = string(hashed)
+
+    	if err := service.Createuser(&user);err != nil{
+     return  c.Status(fiber.StatusInternalServerError).JSON(response.Response{
+		Message: err.Error(),
+		Success: false,
+	 }) 
+	} 
+	return  c.Status(fiber.StatusCreated).JSON(response.Response{
+		Message: "Success create new user",
+		Success: false,
+	})
 	
 
 }
