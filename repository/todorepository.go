@@ -10,3 +10,13 @@ func CreateTodo(todo *model.Todoinfo) error {
 	return db.Create(&todo).Error
 }
 
+func Gettodolist()([]model.Todoinfo,error){
+	db := database.Databaseconnection()
+	var todo []model.Todoinfo
+	err := db.Find(&todo).Error
+	if err != nil{
+		return  nil , err
+	}
+	return todo,nil
+}
+

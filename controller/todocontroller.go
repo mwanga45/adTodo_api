@@ -31,3 +31,18 @@ func CreateTodo(c *fiber.Ctx)error{
 	})
 
 }
+
+func Gettodolist(c *fiber.Ctx)error{
+	todo, err := service.Gettodolist()
+    if err != nil{
+		c.Status(fiber.StatusInternalServerError).JSON(response.Response{
+			Message: err.Error(),
+			Success: false,
+		})
+	}
+	return  c.Status(fiber.StatusOK).JSON(response.Response{
+		Message: "successfuly return data",
+		Success: true,
+		Data: todo,
+	})
+}

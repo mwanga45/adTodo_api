@@ -13,3 +13,6 @@ func CreateTodo(todo *model.Todoinfo)error{
 	}
 	return  repository.CreateTodo(todo)
 }
+func Gettodolist()([]model.Todoinfo, error){
+	return  repository.Gettodolist()
+}
