@@ -1,4 +1,4 @@
-package middleware
+package utils
 
 import (
 	"time"
@@ -20,11 +20,9 @@ func Generatetoken(user *model.User)(string,error){
 	token , err := jwt.NewWithClaims(method,claims).SignedString(secrete_key)
 
 	if err != nil{
-		// log.Fatal(err)
 		return  "", err
 	}
 	return  token, nil
 
-
-
 }
+

@@ -4,6 +4,7 @@ import (
 	"todo_api_backend/model"
 	"todo_api_backend/response"
 	"todo_api_backend/service"
+	"todo_api_backend/utils"
 
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
@@ -41,9 +42,18 @@ func Createuser(c *fiber.Ctx)error{
 		Success: false,
 	 }) 
 	} 
+	token,err := utils.Generatetoken(&user)
+	if err != nil{
+		return  c.Status(fiber.StatusInternalServerError).JSON(response.Response{
+			Message: err.Error(),
+			Success: false,
+		})
+	}
+
 	return  c.Status(fiber.StatusCreated).JSON(response.Response{
 		Message: "Success create new user",
 		Success: false,
+		Data: token,
 	})
 	
 
