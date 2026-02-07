@@ -23,7 +23,7 @@ func Databaseconnection() *gorm.DB {
 	 if err != nil{
 		log.Fatalf("Server failed  to connect  with database %d",err)
 	 }
-	 db.AutoMigrate(&model.Todoinfo{})
+	 db.AutoMigrate(&model.Todoinfo{}, &model.User{})
 	
     return  db
 }
