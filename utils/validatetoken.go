@@ -6,20 +6,30 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func ValidatetTk(tokenString string)error  {
-	parsedtoken, err := jwt.Parse(tokenString,func(t *jwt.Token) (interface{}, error) {
-		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok{
-			return  nil , fmt.Errorf("unexpected signing method")
-		}
-		return  secretKey, nil
-	})
+func ValidatetTk(tokenString string) (*JwtClaims, error) {
+	token, err := jwt.ParseWithClaims(
+		tokenString,
+		&JwtClaims{},
+		func(t *jwt.Token) (interface{}, error) {
+			if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, fmt.Errorf("unexpected signing method")
+			}
+			return secretKey, nil
+		},
+	)
 
-	if err != nil{
-		return  err
+	if err != nil {
+		return nil, err
 	}
 
-	if !parsedtoken.Valid{
-		return fmt.Errorf("Invalid token")
+	if !token.Valid {
+		return nil, fmt.Errorf("invalid token")
 	}
-	return  nil
+
+	claims, ok := token.Claims.(*JwtClaims)
+	if !ok {
+		return nil, fmt.Errorf("invalid token claims")
+	}
+
+	return claims, nil
 }

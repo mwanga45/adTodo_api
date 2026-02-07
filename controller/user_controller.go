@@ -43,7 +43,7 @@ func Createuser(c *fiber.Ctx) error {
 		})
 	}
 
-	token, err := utils.Generatetoken(&user)
+	token, err := utils.GenerateToken(&user)
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(response.Response{

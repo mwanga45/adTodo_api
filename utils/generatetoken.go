@@ -1,28 +1,31 @@
 package utils
 
 import (
+	"fmt"
 	"time"
 	"todo_api_backend/model"
 
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func Generatetoken(user *model.User)(string,error){
-	// generate an token
-	// secretKey := []byte(os.Getenv("SECRETE_KEY"))
-	claims := jwt.MapClaims{
-		"username":user.Username,
-		"userId":user.ID,
-		"exp":time.Now().Add(time.Hour *24).Unix(),
+
+func GenerateToken( user *model.User)(string,error){
+    claims := JwtClaims{
+		Username: user.Username,
+		Password: user.Password,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
+			IssuedAt: jwt.NewNumericDate(time.Now()),
+			Issuer: "MyApp",
+
+		},
+		
 	}
-	method := jwt.SigningMethodES256
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	token , err := jwt.NewWithClaims(method,claims).SignedString(secretKey)
-
+	signedString,err := token.SignedString(secretKey)
 	if err != nil{
-		return  "", err
+		return  "", fmt.Errorf(err.Error())
 	}
-	return  token, nil
-
+	return  signedString, nil
 }
-
