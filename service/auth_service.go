@@ -14,3 +14,14 @@ func Createuser(user *model.User)error{
   return  repository.CreateUser(user)
 
 }
+func Userlogin(user *model.User)error  {
+		if user.Password == "" || user.Username == ""{
+		  log.Fatal("Please username and password required")
+	}
+    _ , err := repository.Userlogin(user.Username)
+
+	if err != nil{
+		log.Fatalf(err.Error())
+	}
+	return  nil
+}
