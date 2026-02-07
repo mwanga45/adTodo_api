@@ -59,6 +59,7 @@ func Createuser(c *fiber.Ctx) error {
 	})
 
 }
+
 func Userlogin(c *fiber.Ctx)error{
 	var user model.User
 
@@ -74,6 +75,7 @@ func Userlogin(c *fiber.Ctx)error{
 			Success: false,
 		})
 	 }
+	 
 	 token , err := utils.GenerateToken(&user)
 	 if err != nil{
 		return  c.Status(fiber.StatusBadRequest).JSON(response.Response{

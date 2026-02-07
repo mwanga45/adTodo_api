@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"fmt"
+	"errors"
 
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -12,7 +12,7 @@ func ValidatetTk(tokenString string) (*JwtClaims, error) {
 		&JwtClaims{},
 		func(t *jwt.Token) (interface{}, error) {
 			if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, fmt.Errorf("unexpected signing method")
+				return nil, errors.New("unexpected signing method")
 			}
 			return secretKey, nil
 		},
@@ -23,12 +23,12 @@ func ValidatetTk(tokenString string) (*JwtClaims, error) {
 	}
 
 	if !token.Valid {
-		return nil, fmt.Errorf("invalid token")
+		return nil, errors.New("invalid token")
 	}
 
 	claims, ok := token.Claims.(*JwtClaims)
 	if !ok {
-		return nil, fmt.Errorf("invalid token claims")
+		return nil, errors.New("invalid token claims")
 	}
 
 	return claims, nil

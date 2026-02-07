@@ -10,6 +10,7 @@ func AuthenticationRoute(app *fiber.App)  {
 	auth := app.Group("/auth")
 
 	auth.Post("/register", controller.Createuser)
+	auth.Post("/login" ,controller.Userlogin)
 
 	
 }

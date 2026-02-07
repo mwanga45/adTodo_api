@@ -3,9 +3,9 @@ package main
 import (
 	"todo_api_backend/config"
 	database "todo_api_backend/db"
+	"todo_api_backend/routes"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
@@ -20,6 +20,8 @@ func main() {
 	_= database.Databaseconnection()
 	
 	
+     routes.AuthenticationRoute(app)
 
-	log.Fatal(app.Listen(":3000"))
+
+	app.Listen(":3000")
 }

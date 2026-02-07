@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"fmt"
+	"errors"
 	"time"
 	"todo_api_backend/model"
 
@@ -25,7 +25,7 @@ func GenerateToken( user *model.User)(string,error){
 
 	signedString,err := token.SignedString(secretKey)
 	if err != nil{
-		return  "", fmt.Errorf(err.Error())
+		return  "", errors.New(err.Error())
 	}
 	return  signedString, nil
 }
