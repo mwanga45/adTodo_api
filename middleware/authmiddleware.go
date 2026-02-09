@@ -12,7 +12,7 @@ func AuthRequir() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		authheader := c.Get("Authorization")
 
-		if authheader != "" {
+		if authheader == "" {
 			return c.Status(fiber.StatusBadRequest).JSON(response.Response{
 				Message: "token expire login again",
 				Success: false,
